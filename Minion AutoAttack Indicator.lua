@@ -1,5 +1,5 @@
 --[[
-  Minion AutoAttack Indicator v0.1
+  Minion AutoAttack Indicator v0.2
   By Nuclear898
 ]]--
 
@@ -55,19 +55,21 @@ function DrawMobIndicators(mob)
     aaDamage = aaDamage + 2
   end
  
-  PrintChat("damage: " .. tostring(aaDamage)) -- debug
+  --PrintChat("damage: " .. tostring(aaDamage)) -- debug
   if (AAIConfig.drawHpBarDividers) then
     local aaWidth = (aaDamage / mob.maxHealth) * width
     local mobHealthWidth = (mob.health / mob.maxHealth) * width
-    local bars = math.ceil(mobHealthWidth / aaWidth)
-    local c = 1
-    while (c <= bars) do
-      local barX = position.x + (c * aaWidth)
-      if (barX < position.x + mobHealthWidth) then
-        DrawLine(barX, position.y - 1, barX, position.y + height, 1, 0xFF000000)
+	if mobHealthWidth > 1 then -- Prevent drawing on mobs that are too strong
+      local bars = math.ceil(mobHealthWidth / aaWidth)
+      local c = 1
+      while (c <= bars) do
+        local barX = position.x + (c * aaWidth)
+        if (barX < position.x + mobHealthWidth) then
+          DrawLine(barX, position.y - 1, barX, position.y + height, 1, 0xFF000000)
+        end
+        c = c + 1
       end
-      c = c + 1
-    end
+	end
   end
   local remainingAAs = math.ceil(mob.health / aaDamage)
   
