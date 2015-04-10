@@ -4,7 +4,7 @@
 ]]--
 
 --vars
-local version = 0.1
+local version = 0.2
 local myHero = GetMyHero()
 local minions = minionManager(MINION_ENEMY, 1500)
 
